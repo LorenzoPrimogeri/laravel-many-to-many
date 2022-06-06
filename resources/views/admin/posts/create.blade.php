@@ -52,8 +52,19 @@
             <div class="col-12">
                 <h5 class="pt-2">Contenuto</h5>
             </div>
-            <div class="co l-12">
+            <div class="col-12">
                 <textarea name="content" class="w-100" rows="10" placeholder="Inserisci il contenuto"></textarea>
+            </div>
+            <div class="col-12">
+                <h5 class="pt-2">Tags</h5>
+            </div>
+            <div class="col-12">
+                @foreach($tags as $tag)
+                <input type="checkbox" value="{{$tag->id}}" name="tags[]" {{in_array($tag->id,
+                old('tags',[]))?'checked':''}}checked>
+                <span class="form-check-label">{{$tag->name}}</span>
+
+                @endforeach
             </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-success text-white">Crea post</button>
