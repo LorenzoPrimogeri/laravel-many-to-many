@@ -74,7 +74,7 @@ class PostController extends Controller
         }
         $newPost->slug = $altSlug;
         $newPost->save();
-        
+
         $newPost->tags()->sync($post['tags']);
         $newPost->save();
         return redirect()->route('admin.posts.index');
@@ -104,8 +104,9 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -149,6 +150,9 @@ class PostController extends Controller
             $found = Post::where('slug', $altSlug)->first();
         }
         $post->slug = $altSlug;
+        $post->save();
+
+        $post->tags()->sync($data['tags']);
         $post->save();
         return redirect()->route('admin.posts.index');
     }

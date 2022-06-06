@@ -43,6 +43,15 @@
         <div class="col-12">
             <p class="w-100 p-1"> {{$post->content}} </p>
         </div>
+        <div class="col-12">
+            <h5 class="pt-2">Tags</h5>
+        </div>
+        <div class="col-12">
+            @foreach ($post->tags as $tag)
+            <p class="w-100 p-1">{{$tag->name}} </p>
+            @endforeach
+
+        </div>
     </div>
 </div>
 @endsection

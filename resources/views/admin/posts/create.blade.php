@@ -61,7 +61,7 @@
             <div class="col-12">
                 @foreach($tags as $tag)
                 <input type="checkbox" value="{{$tag->id}}" name="tags[]" {{in_array($tag->id,
-                old('tags',[]))?'checked':''}}checked>
+                old('tags',[]))?'checked':''}}>
                 <span class="form-check-label">{{$tag->name}}</span>
 
                 @endforeach

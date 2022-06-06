@@ -46,7 +46,7 @@
                         old('category_id',$post->category_id)?'selected':''}}
                         >{{$category->name}}</option>
                     @endforeach
-                </select> 
+                </select>
                 @error('category_id')
                 <div class="d-block invalid-feedback">{{$message}}</div>
                 @enderror
@@ -57,6 +57,16 @@
             <div class="col-12">
                 <textarea name="content" class="w-100" rows="10"
                     placeholder="Inserisci il contenuto">{{$post->content}}</textarea>
+            </div>
+            <div class="col-12">
+                <h5 class="pt-2">Tags</h5>
+            </div>
+            <div class="col-12">
+                @foreach($tags as $tag)
+                <input type="checkbox" value="{{$tag->id}}" name="tags[]" {{ $post->tags->contains($tag)?'checked':''
+                }}>
+                <span class="form-check-label">{{$tag->name}}</span>
+                @endforeach
             </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-success text-white">Salva Modifiche</button>
