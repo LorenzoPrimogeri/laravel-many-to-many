@@ -24,7 +24,7 @@
             @endif
         </div>
     </div>
-    <form action="{{route('admin.posts.update',$post->id)}}" method="POST">
+    <form action="{{route('admin.posts.update',$post->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="row">
@@ -50,6 +50,17 @@
                 @error('category_id')
                 <div class="d-block invalid-feedback">{{$message}}</div>
                 @enderror
+            </div>
+            <div class="col-12">
+                <h5>Immagine corrente </h5>
+                <div>
+                    <img class="w-100" src="{{asset('storage/'. $post->img)}}" alt="">
+                </div>
+                <h5 class="pt-2">Aggiorna immagine:</h5>
+            </div>
+            <div class="col-12">
+
+                <input type="file" name="image">
             </div>
             <div class="col-12">
                 <h5 class="pt-2">Contenuto</h5>

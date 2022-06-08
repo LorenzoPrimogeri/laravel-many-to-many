@@ -8,6 +8,7 @@ use App\Category;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 
 class PostController extends Controller
@@ -62,6 +63,8 @@ class PostController extends Controller
         );
         $post = $request->all();
         $newPost = new Post();
+        $img_path = Storage::put('uploads', $post['image']);
+        $post['img'] = $img_path;
         $newPost->fill($post);
         $slug = Str::slug($newPost->title);
         $found = Post::where('slug', $slug)->first();
@@ -139,6 +142,10 @@ class PostController extends Controller
         $post = new Post();
         $post = Post::findOrFail($id);
         $data = $request->all();
+        Storage::delete($post->img);
+        $img_path = Storage::put('uploads', $data['image']);
+        $data['img'] = $img_path;
+
         $post->fill($data);
         $slug = Str::slug($post->title);
         $found = Post::where('slug', $slug)->first();
@@ -153,6 +160,7 @@ class PostController extends Controller
         $post->save();
 
         $post->tags()->sync($data['tags']);
+
         $post->save();
         return redirect()->route('admin.posts.index');
     }
@@ -163,10 +171,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        $post = Post::findOrFail($id);
+        $post->tags()->sync([]);
         $post->delete();
-        return redirect()->route('admin.posts.index');
+        return redirect()->route("admin.posts.index");
     }
 }

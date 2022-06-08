@@ -24,7 +24,7 @@
             @endif
         </div>
     </div>
-    <form action="{{route('admin.posts.store')}}" method="POST">
+    <form action="{{route('admin.posts.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-12">
@@ -48,6 +48,12 @@
                 @error('category_id')
                 <div class="d-block invalid-feedback">{{$message}}</div>
                 @enderror
+            </div>
+            <div class="col-12">
+                <h5 class="pt-2">Inserisci immagine</h5>
+            </div>
+            <div class="col-12">
+                <input type="file" name="image">
             </div>
             <div class="col-12">
                 <h5 class="pt-2">Contenuto</h5>
